@@ -1,15 +1,13 @@
-package org.fir.firsystem.Service.Security;
+package org.vivek.m5cs.userservice.Security;
 
-import org.fir.firsystem.Model.AppUser;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import org.vivek.m5cs.userservice.Model.AppUser;
 
 import java.util.Collection;
 import java.util.Collections;
-
-
 
 public class userdetails implements UserDetails {
 

@@ -1,4 +1,4 @@
-package org.vivek.m5cs.userservice;
+package org.vivek.m5cs.userservice.Util_Configs;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class Utility_class {
     }
 
     public AppUser getCurrentUser(AppUserService appUserService) throws Exception {
-        String username = util.encryptPlainText(getCurrentUsername());
-        return appUserService.findByUsername(username);
+//        String username = util.encryptPlainText(getCurrentUsername());
+        return appUserService.findByUsername(getCurrentUsername());
 
     }
 }

@@ -1,7 +1,7 @@
-package org.fir.firsystem.Service;
+package org.vivek.m5cs.userservice.Service;
 
-import org.fir.firsystem.Model.AppUser;
-import org.fir.firsystem.Model.Complaint;
+
+import org.vivek.m5cs.userservice.Model.AppUser;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public interface AppUserService {
     AppUser savepolice(AppUser appUser);
     AppUser findByUsername(String username) throws Exception;
     String getToken(String email);
-    List<Complaint> findcomplaintByUser(String username) throws Exception;
+//    List<Complaint> findcomplaintByUser(String username) throws Exception;
     AppUser findByEmail(String email);
     String validateUser(AppUser user);
     String validatePolice(AppUser user);

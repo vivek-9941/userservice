@@ -1,16 +1,16 @@
-package org.fir.firsystem.Controller;
+package org.vivek.m5cs.userservice;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.fir.firsystem.Mailing.EmailController;
-import org.fir.firsystem.Model.AppUser;
-import org.fir.firsystem.Service.AppUserService;
-import org.fir.firsystem.Service.OtpService;
-import org.fir.firsystem.utility.Utility_class;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.vivek.m5cs.userservice.Model.AppUser;
+import org.vivek.m5cs.userservice.Service.AppUserService;
+import org.vivek.m5cs.userservice.Service.OtpService;
+import org.vivek.m5cs.userservice.Util_Configs.Utility_class;
 
 @Slf4j
 @CrossOrigin
@@ -21,8 +21,6 @@ public class UserController {
     @Autowired
     Utility_class utilityClass;
     @Autowired
-    private EmailController emailController;
-    @Autowired
     private AppUserService appUserService;
 
     @Autowired
@@ -31,7 +29,6 @@ public class UserController {
     @PostMapping("/sendotp")
     public ResponseEntity<?> sendOtp(@RequestParam String email) {
         String otp = String.valueOf((int) (Math.random() * 900000) + 100000);
-
         if (appUserService.findByEmail(email) == null) {
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         }
@@ -42,8 +39,7 @@ public class UserController {
                 "<p>Valid for 2 minutes. Do not share it.</p>" +
                 "<p>- e-FIR Team</p>";
 
-
-        boolean verdict = emailController.sendEmail(email, subject, body);
+        boolean verdict = otpService.sendEmail(email, subject, body);
         System.out.println(verdict);
         if (verdict) {
             otpService.saveOtp(email, otp); // Save to Redis with TTL
@@ -54,6 +50,10 @@ public class UserController {
         }
     }
 
+    @GetMapping("/getuser")
+    public AppUser getuser(@RequestParam String username) throws Exception {
+        return appUserService.findByUsername(username);
+    }
     @PostMapping("/verifyOtp")
     public ResponseEntity<?> verifyOtp(@RequestParam String email, @RequestParam String otp) {
         boolean isValid = otpService.verifyOtp(email, otp);
@@ -70,7 +70,6 @@ public class UserController {
             return ResponseEntity.badRequest().body("Invalid or expired OTP");
         }
     }
-
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody AppUser user) throws Exception {
@@ -92,11 +91,11 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<?> getUser(@RequestParam String token) throws Exception {
-        AppUser user = utilityClass.getCurrentUser(appUserService);
+    public AppUser getUser(@RequestParam String token) throws Exception {
 
-        if (user != null) return ResponseEntity.ok().body(user);
-        return ResponseEntity.badRequest().body("Something went wrong");
+        AppUser user = utilityClass.getCurrentUser(appUserService);
+        System.out.println("line 98 usercontroler");
+        return user;
     }
 
     @PostMapping("/login")

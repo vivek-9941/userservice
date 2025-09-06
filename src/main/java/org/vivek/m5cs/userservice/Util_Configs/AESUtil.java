@@ -1,4 +1,4 @@
-package org.vivek.m5cs.userservice;
+package org.vivek.m5cs.userservice.Util_Configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

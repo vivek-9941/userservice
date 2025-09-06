@@ -1,13 +1,13 @@
-package org.fir.firsystem.Service.Security;
+package org.vivek.m5cs.userservice.Security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.fir.firsystem.Service.JWTService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.vivek.m5cs.userservice.Service.JWTService;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -40,10 +40,7 @@ public class JWTServiceImplementation implements JWTService {
                 .compact();
     }
 
-    @Override
-    public String ExtractUserRole(String token) {
-        return extractClaim(token, claims ->  claims.get("role", String.class));
-    }
+
 
     @Override
     public SecretKey getKey() {

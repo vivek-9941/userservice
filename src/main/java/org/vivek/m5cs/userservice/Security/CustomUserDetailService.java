@@ -1,13 +1,12 @@
-package org.fir.firsystem.Service.Security;
+package org.vivek.m5cs.userservice.Security;
 
-import org.fir.firsystem.Model.AppUser;
-import org.fir.firsystem.Repository.AppUserRepository;
-import org.fir.firsystem.Service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.vivek.m5cs.userservice.Model.AppUser;
+import org.vivek.m5cs.userservice.Repository.AppUserRepository;
 
 @Service
 public class CustomUserDetailService implements UserDetailsService {

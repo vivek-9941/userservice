@@ -1,11 +1,9 @@
-package org.vivek.m5cs.userservice;
+package org.vivek.m5cs.userservice.Util_Configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -25,6 +23,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class configs {
     @Autowired
     UserDetailsService service;
+
+    @Autowired
+    JWTFilter jwtFilter;
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -40,8 +41,8 @@ public class configs {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
+                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-        // Add decryption filter FIRST (before JWT)
 
         // Then JWT authentication filter
 
@@ -58,13 +59,6 @@ public class configs {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-    @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, String> template = new RedisTemplate<>();
-        template.setConnectionFactory(connectionFactory);
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new StringRedisSerializer());
-        return template;
-    }
+
 
 }

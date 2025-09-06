@@ -1,21 +1,17 @@
-package org.fir.firsystem.Service.Implementation;
+package org.vivek.m5cs.userservice.Service;
 
-import org.fir.firsystem.Model.AppUser;
-import org.fir.firsystem.Model.Complaint;
-import org.fir.firsystem.Model.Role;
-import org.fir.firsystem.Repository.AppUserRepository;
-import org.fir.firsystem.Repository.ComplaintRepository;
-import org.fir.firsystem.Service.AppUserService;
-import org.fir.firsystem.Service.Security.JWTServiceImplementation;
-import org.fir.firsystem.utility.AESUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.vivek.m5cs.userservice.Util_Configs.AESUtil;
+import org.vivek.m5cs.userservice.Model.AppUser;
+import org.vivek.m5cs.userservice.Model.Role;
+import org.vivek.m5cs.userservice.Repository.AppUserRepository;
+import org.vivek.m5cs.userservice.Security.JWTServiceImplementation;
 
 @Service
 public class AppUserServiceImplementation implements AppUserService {
@@ -28,8 +24,8 @@ public class AppUserServiceImplementation implements AppUserService {
     JWTServiceImplementation jwtService;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    ComplaintRepository complaintRepository;
+//    @Autowired
+//    ComplaintRepository complaintRepository;
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -50,14 +46,13 @@ public class AppUserServiceImplementation implements AppUserService {
 
     @Override
     public AppUser findByUsername(String username) throws Exception {
-
-        return appUserRepository.findByUsername( aesUtil.encryptPlainText(username));
+        return appUserRepository.findByUsername(username);
     }
 
-    public List<Complaint> findcomplaintByUser(String username) throws Exception {
-        AppUser user = findByUsername(username);
-        return complaintRepository.findByUser(user);
-    }
+//    public List<Complaint> findcomplaintByUser(String username) throws Exception {
+//        AppUser user = findByUsername(username);
+//        return complaintRepository.findByUser(user);
+//    }
 
     @Override
     public AppUser findByEmail(String email) {
@@ -68,7 +63,8 @@ public class AppUserServiceImplementation implements AppUserService {
     public String validateUser(AppUser u) {
         System.out.println(1);
         try{
-           String username = aesUtil.encryptPlainText(u.getUsername());
+           String username = u.getUsername();
+            System.out.println(username);
         Authentication authenticate = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         username, u.getPassword()

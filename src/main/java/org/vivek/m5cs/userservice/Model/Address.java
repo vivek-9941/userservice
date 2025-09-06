@@ -1,4 +1,4 @@
-package org.fir.firsystem.Model;
+package org.vivek.m5cs.userservice.Model;
 
 
 import jakarta.persistence.Embeddable;
