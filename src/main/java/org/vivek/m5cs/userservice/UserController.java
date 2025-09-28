@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.vivek.m5cs.userservice.Model.AppUser;
 import org.vivek.m5cs.userservice.Service.AppUserService;
+import org.vivek.m5cs.userservice.Service.JWTService;
 import org.vivek.m5cs.userservice.Service.OtpService;
 import org.vivek.m5cs.userservice.Util_Configs.Utility_class;
 
@@ -19,7 +20,7 @@ import org.vivek.m5cs.userservice.Util_Configs.Utility_class;
 public class UserController {
 
     @Autowired
-    Utility_class utilityClass;
+    private JWTService jwtService;
     @Autowired
     private AppUserService appUserService;
 
@@ -92,9 +93,10 @@ public class UserController {
 
     @GetMapping("/get")
     public AppUser getUser(@RequestParam String token) throws Exception {
-
-        AppUser user = utilityClass.getCurrentUser(appUserService);
-        System.out.println("line 98 usercontroler");
+        System.out.println(token);
+        System.out.println(jwtService.extractUserName(token));
+        AppUser user = appUserService.findByUsername(jwtService.extractUserName(token));
+        System.out.println(user);
         return user;
     }
 

@@ -24,8 +24,6 @@ public class JWTServiceImplementation implements JWTService {
         this.secretKey = secretKey;
     }
     //this is the override of the jwt implementations .
-
-    //the main api gateway will contain the jwt filter .
     //if the filter is return that the token is invalid or expired then it will be redirected to the
     //userservice and then the manual login will happen and the new token generated will be sent to the user
 
