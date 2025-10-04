@@ -24,8 +24,7 @@ public class configs {
     @Autowired
     UserDetailsService service;
 
-    @Autowired
-    JWTFilter jwtFilter;
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -41,10 +40,6 @@ public class configs {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 );
-                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-
-        // Then JWT authentication filter
 
         return http.build();
     }
