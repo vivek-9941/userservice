@@ -14,7 +14,6 @@ import org.vivek.m5cs.userservice.Service.OtpService;
 import org.vivek.m5cs.userservice.Util_Configs.Utility_class;
 
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
