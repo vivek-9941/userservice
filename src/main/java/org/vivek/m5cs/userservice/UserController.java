@@ -43,7 +43,6 @@ public class UserController {
         System.out.println(verdict);
         if (verdict) {
             otpService.saveOtp(email, otp); // Save to Redis with TTL
-
             return ResponseEntity.ok().body("OTP sent successfully");
         } else {
             return ResponseEntity.badRequest().body("OTP not sent");
